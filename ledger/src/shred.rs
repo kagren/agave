@@ -467,7 +467,7 @@ impl Shred {
 
     // Possibly trimmed payload;
     // Should only be used when storing shreds to blockstore.
-    pub(crate) fn bytes_to_store(&self) -> &[u8] {
+    pub fn bytes_to_store(&self) -> &[u8] {
         match self {
             Self::ShredCode(shred) => shred.payload(),
             Self::ShredData(shred) => shred.bytes_to_store(),
@@ -539,7 +539,7 @@ impl Shred {
         }
     }
 
-    pub(crate) fn reference_tick(&self) -> u8 {
+    pub fn reference_tick(&self) -> u8 {
         match self {
             Self::ShredCode(_) => ShredFlags::SHRED_TICK_REFERENCE_MASK.bits(),
             Self::ShredData(shred) => shred.reference_tick(),

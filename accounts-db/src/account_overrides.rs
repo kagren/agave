@@ -28,4 +28,8 @@ impl AccountOverrides {
     pub fn get(&self, pubkey: &Pubkey) -> Option<&AccountSharedData> {
         self.accounts.get(pubkey)
     }
+
+    pub fn get_keys(&self) -> Vec<Pubkey> {
+        self.accounts.keys().cloned().collect()
+    }
 }
