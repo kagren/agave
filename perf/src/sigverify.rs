@@ -143,9 +143,9 @@ fn verify_packet(packet: &mut Packet, reject_non_vote: bool) -> bool {
         let Some(message) = packet.data(msg_start..) else {
             return false;
         };
-        if !signature.verify(pubkey, message) {
+        /*if !signature.verify(pubkey, message) {
             return false;
-        }
+        }*/
         pubkey_start = pubkey_end;
         sig_start = sig_end;
     }
@@ -516,6 +516,9 @@ pub fn shrink_batches(batches: &mut Vec<PacketBatch>) {
 }
 
 pub fn ed25519_verify_cpu(batches: &mut [PacketBatch], reject_non_vote: bool, packet_count: usize) {
+
+    return;
+    
     debug!("CPU ECDSA for {}", packet_count);
     PAR_THREAD_POOL.install(|| {
         batches
@@ -605,6 +608,8 @@ pub fn ed25519_verify(
     reject_non_vote: bool,
     valid_packet_count: usize,
 ) {
+    return;
+
     let Some(api) = perf_libs::api() else {
         return ed25519_verify_cpu(batches, reject_non_vote, valid_packet_count);
     };

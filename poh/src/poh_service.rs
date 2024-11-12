@@ -104,11 +104,14 @@ impl PohService {
         record_receiver: Receiver<Record>,
     ) -> Self {
         let poh_config = poh_config.clone();
+        let hashes_per_tick: Option<u64> = None; // poh_config.hashes_per_tick;
+        let target_tick_count: Option<u64> = poh_config.target_tick_count;
+
         let tick_producer = Builder::new()
             .name("solPohTickProd".to_string())
             .spawn(move || {
-                if poh_config.hashes_per_tick.is_none() {
-                    if poh_config.target_tick_count.is_none() {
+                if hashes_per_tick.is_none() {
+                    if target_tick_count.is_none() {
                         Self::low_power_tick_producer(
                             poh_recorder,
                             &poh_config,
