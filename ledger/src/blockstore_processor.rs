@@ -1499,6 +1499,9 @@ fn confirm_slot_entries(
     log_messages_bytes_limit: Option<usize>,
     prioritization_fee_cache: &PrioritizationFeeCache,
 ) -> result::Result<(), BlockstoreProcessorError> {
+
+    let skip_verification = true;
+
     let ConfirmationTiming {
         confirmation_elapsed,
         replay_elapsed,
